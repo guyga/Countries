@@ -35,4 +35,12 @@ fun bindAreaText(textView: TextView, area: Double) {
 @BindingAdapter("countries")
 fun bindCountries(recyclerView: RecyclerView, countries: List<Country>?) {
     (recyclerView.adapter as CountriesAdapter).submitList(countries)
+    recyclerView.post {
+        recyclerView.layoutManager!!.scrollToPosition(0)
+    }
+}
+
+@BindingAdapter("borders")
+fun bindBorders(textView: TextView, borders: List<String>) {
+    textView.text = borders.toString()
 }

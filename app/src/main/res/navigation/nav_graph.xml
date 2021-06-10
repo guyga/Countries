@@ -7,5 +7,20 @@
     <fragment
         android:id="@+id/countriesFragment"
         android:name="com.example.android.countries.ui.countries.CountriesFragment"
-        android:label="CountriesFragment" />
+        android:label="@string/app_name">
+        <action
+            android:id="@+id/action_countriesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.android.countries.ui.details.DetailsFragment"
+        android:label="{name}">
+        <argument
+            android:name="country"
+            app:argType="com.example.android.countries.domain.model.Country" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </fragment>
 </navigation>

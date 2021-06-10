@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android.countries.databinding.ItemCountryBinding
 import com.example.android.countries.domain.model.Country
 
-class CountriesAdapter() : ListAdapter<Country, CountriesAdapter.CountryViewHolder>(CountryDiff()) {
+class CountriesAdapter(private val onCountryClickedListener: OnCountryClickedListener) :
+    ListAdapter<Country, CountriesAdapter.CountryViewHolder>(CountryDiff()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
         val binding = ItemCountryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -16,12 +17,13 @@ class CountriesAdapter() : ListAdapter<Country, CountriesAdapter.CountryViewHold
     }
 
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), onCountryClickedListener)
     }
 
     class CountryViewHolder(private val binding: ItemCountryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(country: Country) {
+        fun bind(country: Country, onCountryClickedListener: OnCountryClickedListener) {
+            binding.root.setOnClickListener { onCountryClickedListener.onCountryClicked(country) }
             binding.country = country
             binding.executePendingBindings()
         }
@@ -36,5 +38,9 @@ class CountriesAdapter() : ListAdapter<Country, CountriesAdapter.CountryViewHold
             return oldItem == newItem
         }
 
+    }
+
+    class OnCountryClickedListener(private val block: (country: Country) -> Unit) {
+        fun onCountryClicked(country: Country) = block(country)
     }
 }
