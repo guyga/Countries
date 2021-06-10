@@ -1,7 +1,6 @@
 package com.example.android.countries.ui.countries
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.countries.databinding.FragmentCountriesBinding
 import com.example.android.countries.repository.CountriesRepository
+
 
 class CountriesFragment : Fragment() {
 
@@ -29,17 +29,8 @@ class CountriesFragment : Fragment() {
         _binding.viewModel = _viewModel
         _binding.lifecycleOwner = viewLifecycleOwner
         _binding.retry.setOnClickListener { _viewModel.getAllCountries() }
+        _binding.countriesTable.adapter = CountriesAdapter()
 
         return _binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        _viewModel.countries.observe(viewLifecycleOwner) { countries ->
-            countries?.let {
-                Log.i("Guy", "countries: $countries")
-            }
-        }
     }
 }

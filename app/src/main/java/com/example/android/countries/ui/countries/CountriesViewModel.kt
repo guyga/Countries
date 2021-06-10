@@ -46,4 +46,16 @@ class CountriesViewModel(
             }
         }
     }
+
+    fun getRowHeaderList(): List<Int> {
+        val list = ArrayList<Int>()
+        for (i in 0.._countries.value!!.size) {
+            list.add(i)
+        }
+        return list
+    }
+
+    fun getColumnHeaderList(): List<String>{
+        return listOf("Native Name", "Name", "Area")
+    }
 }

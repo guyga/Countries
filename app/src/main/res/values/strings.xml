@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Countries</string>
     <string name="error_loading_countries">Error Loading Countries. Please try again</string>
-    <string name="retry">retry</string>
+    <string name="retry">Retry</string>
+    <string name="header_native_name">Native Name</string>
+    <string name="header_country_name">Name</string>
+    <string name="header_country_area">Area</string>
 </resources>
