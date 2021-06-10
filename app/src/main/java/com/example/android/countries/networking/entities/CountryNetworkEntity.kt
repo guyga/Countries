@@ -36,6 +36,7 @@ fun List<CountryNetworkEntity>.toDatabaseCountries(): List<CountryDatabaseEntity
             area = it.area,
             borders = it.borders,
             nativeName = it.nativeName,
+            alpha3Code = it.alpha3Code
         )
     }
 }

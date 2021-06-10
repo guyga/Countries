@@ -27,9 +27,9 @@ class CountriesRepository private constructor(
         }
     }
 
-    suspend fun getCountry(name: String) {
-        withContext(Dispatchers.IO) {
-            return@withContext countriesDao.getCountry(name)
+    suspend fun getCountries(alpha3Codes: List<String>): List<Country> {
+        return withContext(Dispatchers.IO) {
+            return@withContext countriesDao.getCountries(alpha3Codes).toDomainCountries()
         }
     }
 

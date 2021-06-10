@@ -9,5 +9,6 @@ data class Country(
     var nativeName: String,
     var area: Double,
     var borders: List<String>,
+    var alpha3Code: String
 ) : Parcelable {
 }

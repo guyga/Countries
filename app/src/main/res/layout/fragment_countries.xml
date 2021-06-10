@@ -15,23 +15,29 @@
         android:layout_height="match_parent"
         android:padding="@dimen/spacing_default">
 
-        <include
-            android:id="@+id/header"
-            layout="@layout/item_header"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/countriesTable"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:countries="@{viewModel.countries}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical"
+            app:countriesVisibility="@{viewModel.countries}"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header"
-            tools:listitem="@layout/item_country" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include
+                android:id="@+id/header"
+                layout="@layout/item_header" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/countriesTable"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:countries="@{viewModel.countries}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_country" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"

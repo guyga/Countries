@@ -15,6 +15,6 @@ interface CountriesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCountries(countries: List<CountryDatabaseEntity>)
 
-    @Query("SELECT * from CountryDatabaseEntity WHERE name = :name")
-    suspend fun getCountry(name: String): CountryDatabaseEntity
+    @Query("SELECT * from CountryDatabaseEntity WHERE alpha3Code IN (:alpha3Codes)")
+    suspend fun getCountries(alpha3Codes: List<String>): List<CountryDatabaseEntity>
 }

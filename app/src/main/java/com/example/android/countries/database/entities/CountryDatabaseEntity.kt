@@ -12,15 +12,19 @@ class CountryDatabaseEntity(
     @TypeConverters(StringListConverter::class)
     var borders: List<String>,
     var nativeName: String,
-)
-
-fun List<CountryDatabaseEntity>.toDomainCountries(): List<Country> {
-    return this.map {
-        Country(
-            name = it.name,
-            nativeName = it.nativeName,
-            area = it.area,
-            borders = it.borders
+    var alpha3Code: String
+) {
+    fun toDomainCountry(): Country {
+        return Country(
+            name = this.name,
+            nativeName = this.nativeName,
+            area = this.area,
+            borders = this.borders,
+            alpha3Code = this.alpha3Code
         )
     }
+}
+
+fun List<CountryDatabaseEntity>.toDomainCountries(): List<Country> {
+    return this.map { it.toDomainCountry() }
 }

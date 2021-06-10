@@ -5,4 +5,7 @@
     <string name="header_native_name">Native Name</string>
     <string name="header_country_name">Name</string>
     <string name="header_country_area">Area</string>
+    <string name="title_native_name">Native Name: %s</string>
+    <string name="title_borders">Bordered with:</string>
+    <string name="bordered_country_details">%1s (%2s)</string>
 </resources>
