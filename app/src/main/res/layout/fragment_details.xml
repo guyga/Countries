@@ -25,22 +25,54 @@
             android:textSize="@dimen/title"
             app:nativeName="@{country.nativeName}" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_default"
-            android:text="@string/title_borders"
-            android:textSize="@dimen/title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/borderedList"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_default"
-            app:borderedCountries="@{viewModel.borderedCountries}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:orientation="vertical"
+                app:borderedNotEmpty="@{viewModel.borderedCountries}">
+
+                <TextView
+                    android:id="@+id/borders_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_borders"
+                    android:textSize="@dimen/title" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/borderedList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    app:borderedCountries="@{viewModel.borderedCountries}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            </LinearLayout>
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                app:loading="@{viewModel.loading}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_bordered_countries"
+                android:textSize="@dimen/title"
+                android:visibility="gone"
+                app:emptyBorders="@{viewModel.borderedCountries}" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 </layout>

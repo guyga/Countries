@@ -47,7 +47,8 @@ class CountriesFragment : Fragment() {
             it?.let { country ->
                 findNavController().navigate(
                     CountriesFragmentDirections.actionCountriesFragmentToDetailsFragment(
-                        country, country.name
+                        country,
+                        country.name
                     )
                 )
                 _viewModel.onNavigateToCountryCompleted()
@@ -62,13 +63,18 @@ class CountriesFragment : Fragment() {
             }
         }
 
-        _binding.header.headerName.post { adjustHeadersPadding() }
+        _binding.header.sortIcon.post { adjustHeadersPadding() }
 
         _binding.header.headerName.setOnClickListener { _viewModel.sort(0) }
         _binding.header.headerNativeName.setOnClickListener { _viewModel.sort(1) }
         _binding.header.headerArea.setOnClickListener { _viewModel.sort(2) }
     }
 
+    /**
+     * Sort icon has no 1 constant location - it would appear according to the sorted-by column,
+     * so this adjusts the column to have additional padding of the icon width -
+     * to avoid overlapping of the texts and the sorting icon
+     */
     private fun adjustHeadersPadding() {
         val sortIconWidth = _binding.header.sortIcon.width
 
@@ -92,6 +98,10 @@ class CountriesFragment : Fragment() {
         )
     }
 
+    /**
+     * Receives a [Guideline] to align the sort icon to its end.
+     * The given direction determines the icon's rotation
+     */
     private fun adjustSortIcon(toEndOf: Guideline, direction: CountriesViewModel.SortDirection) {
         // Set sort icon at the correct location
         val constraintLayout: ConstraintLayout = _binding.header.root

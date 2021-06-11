@@ -1,5 +1,6 @@
 package com.example.android.countries.ui.countries
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.android.countries.domain.model.Country
 import com.example.android.countries.repository.CountriesRepository
@@ -43,10 +44,15 @@ class CountriesViewModel(
 
         _countries.addSource(_countriesUnsorted) {
             it?.let {
+                Log.i(TAG, "Countries were received - sorting now")
                 _countries.value = sort(it, _sort.value!!)
             }
         }
         _countries.addSource(_sort) { sortState ->
+            Log.i(
+                TAG,
+                "Sort state was set to column ${sortState.headerPosition} direction ${sortState.direction.name}"
+            )
             _countriesUnsorted.value?.let { countries ->
                 _countries.value = sort(countries, sortState)
             }
@@ -55,6 +61,9 @@ class CountriesViewModel(
         getAllCountries()
     }
 
+    /**
+     * Initializing all the required sorting comparators
+     */
     private fun createComparators() {
         _comparatorNameDsc = Comparator<Country> { o1, o2 -> o1.name.compareTo(o2.name) }
         _comparatorNameAsc = Comparator<Country> { o1, o2 -> o2.name.compareTo(o1.name) }
@@ -67,6 +76,7 @@ class CountriesViewModel(
     }
 
     fun getAllCountries() {
+        Log.i(TAG, "Getting all countries")
         viewModelScope.launch {
             _loading.value = true
             _error.value = false
@@ -75,9 +85,11 @@ class CountriesViewModel(
 
             try {
                 val countries = countriesRepository.getAllCountries()
+                Log.i(TAG, "${countries.size} countries were received successfully")
                 _countriesUnsorted.value = countries
                 _error.value = false
             } catch (e: Exception) {
+                Log.e(TAG, "Error retrieving countries. ${e.message}")
                 _error.value = true
             } finally {
                 _loading.value = false
@@ -93,33 +105,44 @@ class CountriesViewModel(
         _navigateToCountry.value = null
     }
 
+    /**
+     * Sorting state was changed,
+     * The new sorting would be by the given column, direction - DSC,
+     * unless its the same column as the current one - then direction would be ASC.
+     */
     fun sort(headerPosition: Int) {
-        val direction:SortDirection = if (_sort.value!!.headerPosition == headerPosition)
+        val direction: SortDirection = if (_sort.value!!.headerPosition == headerPosition)
             if (_sort.value!!.direction == SortDirection.DSC)
                 SortDirection.ASC
             else
                 SortDirection.DSC
         else
-            SortDirection.ASC
+            SortDirection.DSC
 
         _sort.value = SortState(headerPosition, direction)
     }
 
+    /**
+     * Actual sorting. First retrieve the correct comparator, then sort
+     */
     private fun sort(countries: List<Country>, sortState: SortState): List<Country> {
-        val comparator: Comparator<Country> = if (sortState.direction == SortDirection.ASC)
+        val comparator: Comparator<Country> = if (sortState.direction == SortDirection.ASC) {
+            Log.i(TAG, "Sorting ASC, by column ${sortState.headerPosition}")
             when (sortState.headerPosition) {
                 0 -> _comparatorNameAsc
                 1 -> _comparatorNativeNameAsc
                 2 -> _comparatorAreaAsc
                 else -> _comparatorNameDsc
             }
-        else
+        } else {
+            Log.i(TAG, "Sorting DSC, by column ${sortState.headerPosition}")
             when (sortState.headerPosition) {
                 0 -> _comparatorNameDsc
                 1 -> _comparatorNativeNameDsc
                 2 -> _comparatorAreaDsc
                 else -> _comparatorNameDsc
             }
+        }
 
         return countries.sortedWith(comparator)
     }
@@ -131,4 +154,8 @@ class CountriesViewModel(
     )
 
     enum class SortDirection { ASC, DSC }
+
+    companion object {
+        private val TAG = CountriesViewModel::class.simpleName
+    }
 }

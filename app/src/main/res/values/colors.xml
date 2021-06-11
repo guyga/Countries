@@ -10,7 +10,6 @@
     <color name="table_header">#0079D6</color>
     <color name="table_entry">#DAE8FC</color>
 
-    <color name="cell_background_color">#ffffff</color>
-    <color name="header_line_color">#0a0a0a</color>
-    <color name="table_view_default_text_color">#0a0a0a</color>
+    <color name="table_header_background">#a1c5f7</color>
+    <color name="table_data_background">#DAE8FC</color>
 </resources>

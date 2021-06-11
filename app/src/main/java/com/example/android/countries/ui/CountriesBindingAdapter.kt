@@ -41,7 +41,7 @@ fun bindCountries(recyclerView: RecyclerView, countries: List<Country>?) {
 
 @BindingAdapter("countriesVisibility")
 fun bindCountriesVisibility(view: View, countries: List<Country>?) {
-    view.visibility = if (countries == null) View.GONE else View.VISIBLE
+    view.visibility = if (countries == null) View.INVISIBLE else View.VISIBLE
 }
 
 @BindingAdapter("nativeName")
@@ -61,4 +61,18 @@ fun bindBorderedCountriesText(textView: TextView, country: Country) {
 @BindingAdapter("borderedCountries")
 fun bindBorderedCountriesText(recyclerView: RecyclerView, countries: List<Country>?) {
     (recyclerView.adapter as BorderedCountriesAdapter).submitList(countries)
+}
+
+@BindingAdapter("emptyBorders")
+fun bindEmptyBorders(view: View, countries: List<Country>?) {
+    countries?.let {
+        view.visibility = if (countries.isEmpty()) View.VISIBLE else View.GONE
+    }
+}
+
+@BindingAdapter("borderedNotEmpty")
+fun bindBorderedNotEmpty(view: View, countries: List<Country>?) {
+    countries?.let {
+        view.visibility = if (countries.isEmpty()) View.GONE else View.VISIBLE
+    }
 }

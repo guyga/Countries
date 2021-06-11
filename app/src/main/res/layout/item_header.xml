@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/spacing_small"
-    android:paddingBottom="@dimen/spacing_small">
+    android:background="@color/table_header_background"
+    android:padding="@dimen/spacing_small">
 
     <TextView
         android:id="@+id/header_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/spacing_small"
         android:text="@string/header_country_name"
         android:textSize="@dimen/title"
         app:layout_constraintBottom_toBottomOf="parent"

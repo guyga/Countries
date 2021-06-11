@@ -37,7 +37,6 @@ class CountriesAdapter(private val onCountryClickedListener: OnCountryClickedLis
         override fun areContentsTheSame(oldItem: Country, newItem: Country): Boolean {
             return oldItem == newItem
         }
-
     }
 
     class OnCountryClickedListener(private val block: (country: Country) -> Unit) {

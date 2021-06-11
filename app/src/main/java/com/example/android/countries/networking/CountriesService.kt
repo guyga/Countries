@@ -11,7 +11,7 @@ interface CountriesServiceApi {
 }
 
 object CountriesService {
-    val countriesServiceApi = Retrofit.Builder()
+    val countriesServiceApi: CountriesServiceApi = Retrofit.Builder()
         .baseUrl("https://restcountries.eu/rest/v2/")
         .addConverterFactory(GsonConverterFactory.create())
         .build().create(CountriesServiceApi::class.java)

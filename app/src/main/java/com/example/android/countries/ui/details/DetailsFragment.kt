@@ -19,13 +19,13 @@ class DetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _viewModel = ViewModelProvider(
             this,
             DetailsViewModelFactory(CountriesRepository.getInstance(requireActivity()))
         ).get(DetailsViewModel::class.java)
 
         val args: DetailsFragmentArgs by navArgs()
+
         val binding = FragmentDetailsBinding.inflate(inflater, container, false)
         binding.country = args.country
         binding.viewModel = _viewModel

@@ -16,5 +16,5 @@ interface CountriesDao {
     suspend fun insertCountries(countries: List<CountryDatabaseEntity>)
 
     @Query("SELECT * from CountryDatabaseEntity WHERE alpha3Code IN (:alpha3Codes)")
-    suspend fun getCountries(alpha3Codes: List<String>): List<CountryDatabaseEntity>
+    suspend fun getCountriesByCode(alpha3Codes: List<String>): List<CountryDatabaseEntity>
 }

@@ -8,4 +8,5 @@
     <string name="title_native_name">Native Name: %s</string>
     <string name="title_borders">Bordered with:</string>
     <string name="bordered_country_details">%1s (%2s)</string>
+    <string name="no_bordered_countries">Country has no known bordered countries</string>
 </resources>

@@ -5,11 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.android.countries.database.converters.*
+import com.example.android.countries.database.converters.StringListConverter
 import com.example.android.countries.database.entities.CountryDatabaseEntity
 
-@Database(entities = [CountryDatabaseEntity::class], version = 1)
-@TypeConverters(value = [StringListConverter::class, DoubleListConverter::class, CurrencyListConverter::class, LanguageListConverter::class, RegionalBlocListConverter::class, TranslationsConverter::class])
+@Database(entities = [CountryDatabaseEntity::class], version = 2)
+@TypeConverters(value = [StringListConverter::class])
 abstract class CountriesDatabase : RoomDatabase() {
     abstract fun countriesDao(): CountriesDao
 
@@ -23,7 +23,7 @@ abstract class CountriesDatabase : RoomDatabase() {
                         context.applicationContext,
                         CountriesDatabase::class.java,
                         "countries-database"
-                    ).build()
+                    ).fallbackToDestructiveMigration().build()
                 }
             }
             return INSTANCE
